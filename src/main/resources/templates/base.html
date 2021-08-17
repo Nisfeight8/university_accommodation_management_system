@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">UAMS</title>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css"
+            rel="stylesheet" />
+    <!-- all CSS links here -->
+</head>
+<style>
+ .pagination .page-item.active .page-link { background-color: #000; border-color:white; }
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.active .page-link:focus {
+background-color: #000;
+}
+
+.pagination .page-item.active .page-link:hover {
+background-color: #000;
+}
+input[type="text"],
+select.form-control,
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="number"]
+ {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select.form-control:focus,
+selectmultiple.form-control:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus
+ {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+input[type="text"]:disabled,
+input[type="file"]:disabled,
+select:disabled
+{
+  background: white;
+}
+</style>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light"	th:fragment="header">
+    <a class="navbar-brand"><i class="fa fa-university"></i>UAMS</a>
+    <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
+        <li class="nav-item"><a  href="/home"
+                                 class="nav-link "><i class="fa fa-home"></i> Home </a></li>
+
+        <li sec:authorize="hasAuthority('view_chiefs')" class="nav-item"><a  href="/chiefs"
+                                                                            class="nav-link "> Chiefs </a></li>
+        <li sec:authorize="hasAuthority('view_calls')" class="nav-item"><a  href="/calls"
+                                                                             class="nav-link "> Calls </a></li>
+        <li sec:authorize="hasAuthority('view_managers')" class="nav-item"><a  href="/managers"
+                                                                             class="nav-link "> Managers </a></li>
+        <li sec:authorize="hasAuthority('view_universities')" class="nav-item"><a  href="/universities"
+                                                                               class="nav-link "> Universities </a></li>
+        <li sec:authorize="hasAuthority('view_departments')" class="nav-item"><a  href="/departments"
+                                                                                   class="nav-link "> Departments </a></li>
+        <li sec:authorize="hasAuthority('view_applications')" class="nav-item"><a  href="/applications"
+                                                                                  class="nav-link "> Applications </a></li>
+        <li class="nav-item"><a th:href="@{/logout}"
+                                class="btn btn-outline-dark "><i class="fa fa-sign-out"></i>Logout </a></li>
+    </ul>
+    <ul sec:authorize="!isAuthenticated()" class="navbar-nav ml-auto">
+        <li class="nav-item"><a  href="/login" class="nav-link "> Login </a></li>
+        <li class="nav-item"><a  href="/register" class="nav-link "> Signup </a></li>
+    </ul>
+</nav>
+<div class="alert alert-warning alert-dismissible fade show"
+     th:if="${param.error}">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+    <i class="fa fa-exclamation-circle"></i> <strong>Warning</strong>
+    Invalid username or password.
+</div>
+<div class="alert alert-warning alert-dismissible fade show"
+     th:if="${warning}">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+    <i class="fa fa-exclamation-circle"></i> <strong>Warning ! </strong> <span th:text="${warning}"></span>
+</div>
+<div class="alert alert-success alert-dismissible fade show"
+     th:if="${success}">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+    <i class="fa fa-check-circle"></i> <strong>Success ! </strong><span th:text="${success}"></span>
+</div>
+<div class="container">
+    <br>
+    <br>
+    <div class="content">
+        <div layout:fragment="page_content" >
+
+        </div>
+    </div>
+</div>
+<footer class="page-footer font-small text-dark pt-4">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center ">
+        University Accommodation Management System .
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3" > <span th:text="${#dates.year(#dates.createNow())}"></span>  Copyright:
+        <a href="https://github.com/Nisfeight8"> Nisfeight8</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			$('#datatable').DataTable();
+		});
+	</script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $('.dateinput').datepicker({
+        format: 'dd/mm/yyyy',
+    });
+</script>
+</body>
+</html>

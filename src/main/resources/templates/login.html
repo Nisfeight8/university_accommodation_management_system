@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+
+<div layout:fragment="page_content" id="page_content">
+    <!-- content for this page -->
+
+    <div class="outer-area">
+        <div class="auth-box text-center">
+            <h1><i class="fa fa-university"></i>UAMS</h1>
+            <p class="lead text-muted">Welcome!</p>
+            <div class="login-form-container">
+                <form th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label for="username">Username:</label> <input type="text"
+                                                                       name="username" class="form-control" placeholder="Enter username"
+                                                                       id="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label> <input type="password"
+                                                                       name="password" class="form-control" placeholder="Enter password"
+                                                                       id="password">
+                    </div>
+                    <button type="submit" class="btn btn-dark">
+                        <i class="fa fa-sign-in"></i>Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
+
+

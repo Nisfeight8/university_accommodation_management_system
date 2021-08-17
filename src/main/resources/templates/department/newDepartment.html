@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>New department</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card">
+        <div class="card-header bg-light">
+            New Department
+        </div>
+        <div class="card-body">
+            <form id="myForm" action="/departments/new"
+                  th:object="${department}" method="post" >
+                <div class="form-group ">
+                    <label>Name :</label> <input th:field="*{name}"
+                                                 type="text" name="name" class="form-control"
+                                                 placeholder="Name" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('name'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('name')}" th:text="${error}">Invalid data</p>
+
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Country :</label> <input th:field="*{country}"
+                                                    type="text" name="country" class="form-control"
+                                                    placeholder="Country" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('country'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('country')}" th:text="${error}">Invalid data</p>
+
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>City :</label> <input th:field="*{city}"
+                                                 type="text" name="city" class="form-control"
+                                                 placeholder="City" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('city'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('city')}" th:text="${error}">Invalid data</p>
+
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Address :</label> <input th:field="*{address}"
+                                                    type="text" name="address" class="form-control"
+                                                    placeholder="Address" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('address'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('address')}" th:text="${error}">Invalid data</p>
+
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Pobox :</label> <input th:field="*{pobox}"
+                                                  type="text" name="pobox" class="form-control"
+                                                  placeholder="Pobox" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('pobox'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('pobox')}" th:text="${error}">Invalid data</p>
+
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Phone :</label>
+                    <input th:field="*{phone}" type="text" name="phone" class="form-control"
+                           placeholder="Phone" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('phone'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('phone')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>University :</label>
+                    <select th:field="*{university}" class="form-control" required="required">
+                        <option th:each="university: ${universities}" th:value="${university.id}" th:text="${university.name}"></option>
+                    </select>
+                </div>
+                <input type="submit" value="Submit"
+                       class="btn btn-dark btn-custom" />
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

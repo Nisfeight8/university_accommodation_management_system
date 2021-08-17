@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Call</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card text-center">
+        <div class="card-header bg-light"  th:text="${call.title}">
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Start Date</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${#dates.format(call.start_date, 'dd/MM/yyyy')}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">End Date</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${#dates.format(call.end_date, 'dd/MM/yyyy')}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Department</h6>
+                </div>
+                <div class="col-sm-8 text-secondary"><div sec:authorize="!hasAuthority('view_department')" th:text="${call.department.name}"></div><strong><a class="text-dark" sec:authorize="hasAuthority('view_department')" th:href="@{'/departments/'+${call.department.id}}" th:text="${call.department.name}"/></strong></div>
+            </div><hr>
+        </div>
+        <div class="card-footer">
+            <a  sec:authorize="hasAuthority('delete_call')" class="btn btn-outline-dark"
+               th:href="@{'/calls/'+${call.id} + '/delete'}"><i
+                    class="fa fa-trash"></i>Delete</a> <a  sec:authorize="hasAuthority('edit_call')" class="btn btn-outline-dark"
+                                                          th:href="@{'/calls/'+${call.id} + '/edit'}"><i class="fa fa-edit"></i>Edit</a><a  sec:authorize="hasAuthority('add_application')" class="btn btn-outline-dark"
+                                                                                                                                           th:href="@{'/calls/'+${call.id} + '/applications/new'}"><i class="fa fa-plus"></i>Create Application</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

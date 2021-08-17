@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Application</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card text-center">
+        <div class="card-header bg-light" >Application
+        </div>
+        <div class="card-body">
+            <div  sec:authorize="hasAuthority('view_applicant')" class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Applicant</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${app.applicant.username}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Family Income</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${app.family_income}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Siblings</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${app.siblings}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Study Years</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${app.study_years}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Accommodation Years</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${app.accommodation_years}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Working</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${app.working}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Submission Date</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${#dates.format(app.submission_date, 'dd/MM/yyyy')}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Call</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" ><div sec:authorize="!hasAuthority('view_call')" th:text="${app.call.title}"></div><strong><a class="text-dark" sec:authorize="hasAuthority('view_call')" th:href="@{'/calls/'+${app.call.id}}" th:text="${app.call.title}"/></strong>
+            </div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Status</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${app.status}"></div>
+            </div><hr>
+        </div>
+        <div class="card-footer">
+            <a sec:authorize="hasAuthority('delete_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+ ${app.id} + '/delete'}"><i class="fa fa-trash"></i> Delete</a>
+            <a sec:authorize="hasAuthority('edit_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+${app.id} + '/edit'}"><i class="fa fa-edit"></i> Edit </a>
+            <a sec:authorize="hasAuthority('admit_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+${app.id} + '/accept'}"><i class="fa fa-check"></i> Accept</a>
+            <a sec:authorize="hasAuthority('admit_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+${app.id} + '/refuse'}"><i class="fa fa-times"></i> Refuse</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

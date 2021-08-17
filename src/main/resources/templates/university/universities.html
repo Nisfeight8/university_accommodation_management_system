@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Universities</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card">
+        <div class="card-header bg-light">
+            <span class="float-left">Universities</span>
+    <a sec:authorize="hasAuthority('add_university')" class="btn-sm btn-outline-dark float-right" th:href="@{/universities/new}"><i class="fa fa-plus"></i>Add University</a>
+        </div>
+        <div class="card-body">
+    <table id="datatable" class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th class="th-sm" scope="col">Name</th>
+            <th class="th-sm" scope="col">Country</th>
+            <th class="th-sm" scope="col">City</th>
+            <th class="th-sm" scope="col">Address</th>
+            <th class="th-sm" scope="col">Pobox</th>
+            <th class="th-sm" scope="col">Phone</th>
+            <th class="th-sm" scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="university : ${universities}">
+            <tr>
+                <td ><strong><a  class="text-dark" th:href="@{'/universities/'+${university.id}}"  th:text="${university.name}"></a></strong></td>
+                <td th:text="${university.country}"></td>
+                <td th:text="${university.city}"></td>
+                <td th:text="${university.address}"></td>
+                <td th:text="${university.pobox}"></td>
+                <td th:text="${university.phone}"></td>
+                <td><a sec:authorize="hasAuthority('delete_university')" class="btn btn-outline-dark"
+                       th:href="@{'/universities/'+ ${university.id} + '/delete'}"><i
+                        class="fa fa-trash"></i></a> <a sec:authorize="hasAuthority('edit_university')" class="btn btn-outline-dark"
+                                                              th:href="@{'/universities/'+${university.id} + '/edit'}"><i class="fa fa-edit"></i></a></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Application</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card">
+        <div class="card-header bg-light">
+            Edit Application
+        </div>
+        <div class="card-body">
+            <form id="myForm" th:action="@{'/applications'+ ${application.id}+'/edit'}"
+                  th:object="${application}" method="post">
+                <input type="hidden" th:field="*{call}" />
+                <input type="hidden" th:field="*{applicant}" />
+
+                <div class="form-group ">
+                    <label>Family Income :</label> <input th:field="*{family_income}"
+                                                          type="number" name="family_income" class="form-control"
+                                                          placeholder="Family Income" required="required"   th:classappend="${not #lists.isEmpty(#fields.errors('family_income'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('family_income')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Siblings :</label> <input th:field="*{siblings}"
+                                                     type="number" name="siblings" class="form-control"
+                                                     placeholder="Siblings" required="required"  th:classappend="${not #lists.isEmpty(#fields.errors('siblings'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('siblings')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Study Years :</label> <input th:field="*{study_years}"
+                                                        type="number" name="study_years" class="form-control"
+                                                        placeholder="Study Years" required="required"   th:classappend="${not #lists.isEmpty(#fields.errors('study_years'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('study_years')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Accommodation Years :</label> <input th:field="*{accommodation_years}"
+                                                                type="number" name="accommodation_years" class="form-control"
+                                                                placeholder="Accommodation Years" required="required"    th:classappend="${not #lists.isEmpty(#fields.errors('accommodation_years'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('accommodation_years')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Working</label>
+                    <input type="checkbox" th:field="*{working}" th:checked="${application.working} ? 'checked'"/>
+                </div>
+                <input type="submit" value="Submit"
+                       class="btn btn-dark btn-custom" />
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+
+    <div  class="jumbotron">
+        <h1 class="display-4" sec:authorize="hasRole('ROLE_ADMIN')"> Welcome Admin !</h1>
+        <h1 class="display-4" sec:authorize="hasRole('ROLE_CHIEF')"> Welcome Chief !</h1>
+        <h1 class="display-4" sec:authorize="hasRole('ROLE_MANAGER')"> Welcome Manager !</h1>
+        <h1 class="display-4" sec:authorize="hasRole('ROLE_APPLICANT')"> Welcome Applicant !</h1>
+        <h4>Instructions :</h4>
+        <br>
+        <p sec:authorize="hasAuthority('view_chiefs')" class="nav-item">Click<a href="/chiefs" > Chiefs </a> to view chiefs . </p>
+        <p sec:authorize="hasAuthority('view_calls')" class="nav-item">Click<a href="/calls" > Calls </a> to view calls .</p>
+        <p sec:authorize="hasAuthority('view_managers')" class="nav-item">Click<a href="/managers" > Managers </a> to view managers .</p>
+        <p sec:authorize="hasAuthority('view_universities')" class="nav-item">Click<a  href="/universities" > Universities </a> to view universities .</p>
+        <p sec:authorize="hasAuthority('view_departments')" class="nav-item">Click<a  href="/departments" > Departments </a> to view departments .</p>
+        <p sec:authorize="hasAuthority('view_applications')" class="nav-item">Click<a  href="/applications" > Applications </a> to view applications .</p>
+    </div>
+</div>
+</body>

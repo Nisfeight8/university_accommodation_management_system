@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>manager</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card text-center">
+        <div class="card-header bg-light"  th:text="${manager.username}">
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Phone</h6>
+                </div>
+                <div class="col-sm-8 text-secondary" th:text="${manager.phone}"></div>
+            </div><hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="mb-0">Call</h6>
+                </div>
+                <div class="col-sm-8 text-secondary"> <div sec:authorize="!hasAuthority('view_call')" th:text="${manager.call.title}"> </div> <strong><a class="text-dark" sec:authorize="hasAuthority('view_call')" th:href="@{'/calls/'+${manager.call.id}}" th:text="${manager.call.title}"/></strong>
+            </div>
+            </div><hr>
+        </div>
+        <div class="card-footer">
+            <a sec:authorize="hasAuthority('delete_manager')"  class="btn btn-outline-dark"
+               th:href="@{'/managers/'+${manager.id} + '/delete'}"><i
+                    class="fa fa-trash"></i>Delete</a> <a sec:authorize="hasAuthority('edit_manager')"  class="btn btn-outline-dark"
+                                                          th:href="@{'/managers/'+${manager.id} + '/edit'}"><i class="fa fa-edit"></i>Edit</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

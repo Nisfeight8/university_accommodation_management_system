@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>New Call</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card">
+        <div class="card-header bg-light">
+            New Call
+        </div>
+        <div class="card-body">
+            <form id="myForm" action="/calls/new"
+                  th:object="${call}" method="post">
+                <div class="form-group ">
+                    <label>Title :</label> <input th:field="*{title}"
+                                                     type="text" name="title" class="form-control"
+                                                     placeholder="Title" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('title'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('title')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Start Date :</label>
+                    <div class="input-group date">
+                    <input th:field="*{start_date}"
+                                                     type="text" name="start_date" class="form-control dateinput"
+                                                     placeholder="Start Date" required="required"  autocomplete="off" th:value="${#dates.format(start_date, 'dd/MM/yyyy')}"  th:classappend="${not #lists.isEmpty(#fields.errors('start_date'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('start_date')}" th:text="${error}">Invalid data</p>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>End Date :</label> <input th:field="*{end_date}"
+                                                  type="text" name="end_date" class="form-control dateinput"
+                                                  placeholder="End Date" required="required"  th:value="${#dates.format(end_date, 'dd/MM/yyyy')}" th:classappend="${not #lists.isEmpty(#fields.errors('end_date'))} ? is-invalid  " />
+                    <div class="invalid-feedback" >
+                        <p th:each="error: ${#fields.errors('end_date')}" th:text="${error}">Invalid data</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Department :</label>
+                    <select th:field="*{department}" class="form-control" required="required">
+                        <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+                    </select>
+                </div>
+                <input type="submit" value="Submit"
+                       class="btn btn-dark btn-custom" />
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

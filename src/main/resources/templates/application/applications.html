@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Applications</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card">
+        <div class="card-header bg-light">
+            <span class="float-left">Applications</span>
+        </div>
+        <div class="card-body">
+    <table id="datatable" class="table table-responsive">
+        <thead class="thead-light">
+        <tr>
+            <th class="th-sm" scope="col"  sec:authorize="hasAuthority('ROLE_MANAGER')">Applicant</th>
+            <th class="th-sm" scope="col">Family Income</th>
+            <th class="th-sm" scope="col">Siblings</th>
+            <th class="th-sm" scope="col">Study Years</th>
+            <th class="th-sm" scope="col">Accommodation Years</th>
+            <th class="th-sm" scope="col">Working</th>
+            <th class="th-sm" scope="col">Submission Date</th>
+            <th class="th-sm" scope="col">Call</th>
+            <th class="th-sm" scope="col">Status</th>
+            <th class="th-sm" scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="app : ${applications}">
+            <tr>
+                <td th:text="${app.applicant.username}"  sec:authorize="hasAuthority('ROLE_MANAGER')">" "</td>
+                <td th:text="${app.family_income}"></td>
+                <td th:text="${app.siblings}"></td>
+                <td th:text="${app.study_years}"></td>
+                <td th:text="${app.accommodation_years}"></td>
+                <td th:text="${app.working}"></td>
+                <td th:text="${#dates.format(app.submission_date, 'dd/MM/yyyy')}"></td>
+                <td ><div sec:authorize="!hasAuthority('view_call')" th:text="${app.call.title}"></div><strong><a class="text-dark" sec:authorize="hasAuthority('view_call')" th:href="@{'/calls/'+${app.call.id}}" th:text="${app.call.title}"/></strong></td>
+                <td th:text="${app.status}"></td>
+                <td><div class="row"><a sec:authorize="hasAuthority('delete_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+ ${app.id} + '/delete'}"><i class="fa fa-trash"></i></a>
+                    <a sec:authorize="hasAuthority('view_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+${app.id}}" > <i class="fa fa-eye"></i></a>
+                    <a sec:authorize="hasAuthority('edit_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+${app.id} + '/edit'}"><i class="fa fa-edit"></i></a>
+                    <form sec:authorize="hasAuthority('admit_application')" method="POST" th:action="@{'/applications/'+${app.id} + '/accept'}">
+                        <button type="submit" name="submit" value="Accept"
+                                class="btn btn-outline-dark"><i class="fa fa-check"></i></button>
+                    </form>
+                    <form sec:authorize="hasAuthority('admit_application')" method="POST" th:action="@{'/applications/'+${app.id} + '/refuse'}">
+                        <button type="submit" name="submit" value="submit"
+                                class="btn btn-outline-dark"><i class="fa fa-times"></i></button>
+                    </form>
+                </div>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+    </div>
+</div>
+</body>
+</html>r

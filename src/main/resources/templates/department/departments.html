@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card">
+    <div class="card-header bg-light">
+        <span class="float-left">Departments</span>
+        <a sec:authorize="hasAuthority('add_department')" class="btn-sm btn-outline-dark float-right" th:href="@{/departments/new}"><i class="fa fa-plus"></i>Add Department</a>
+    </div>
+    <div class="card-body">
+    <table id="datatable" class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th class="th-sm" scope="col">Name</th>
+            <th class="th-sm" scope="col">Country</th>
+            <th class="th-sm" scope="col">City</th>
+            <th class="th-sm" scope="col">Address</th>
+            <th class="th-sm" scope="col">Pobox</th>
+            <th class="th-sm" scope="col">Phone</th>
+            <th class="th-sm" scope="col">University</th>
+            <th class="th-sm" scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="department : ${departments}">
+            <tr>
+                <td ><strong><a  class="text-dark" th:href="@{'/departments/'+${department.id}}" th:text="${department.name}"/></strong></td>
+                <td th:text="${department.country}"></td>
+                <td th:text="${department.city}"></td>
+                <td th:text="${department.address}"></td>
+                <td th:text="${department.pobox}"></td>
+                <td th:text="${department.phone}"></td>
+                <td><div sec:authorize="hasAuthority('!view_university')" th:text="${department.university.name}"></div><strong><a class="text-dark" sec:authorize="hasAuthority('view_university')" th:href="@{'/universities/'+${department.university.id}}" th:text="${department.university.name}"/></strong></td>
+                <td><a sec:authorize="hasAuthority('delete_department')" class="btn btn-outline-dark"
+                       th:href="@{'/departments/'+ ${department.id} + '/delete'}"><i
+                        class="fa fa-trash"></i></a> <a sec:authorize="hasAuthority('edit_department')" class="btn btn-outline-dark"
+                                                              th:href="@{'/departments/'+${department.id} + '/edit'}"><i class="fa fa-edit"></i></a></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+</body>
+</html>

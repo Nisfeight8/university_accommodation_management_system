@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+
+<div layout:fragment="page_content" id="page_content">
+    <!-- content for this page -->
+
+    <div class="outer-area">
+        <div class="auth-box text-center">
+            <h1><i class="fa fa-university"></i>UAMS</h1>
+            <p class="lead text-muted">Signup !</p>
+        </div>
+            <div class="login-form-container">
+                <form th:action="@{/register}"  th:object="${applicant}" method="post" >
+                    <p class="error-message"
+                       th:if="${#fields.hasGlobalErrors()}"
+                       th:each="error : ${#fields.errors('global')}"
+                       th:text="${error}">Validation error</p>
+                    <div class="form-group" >
+                        <label>Username :</label> <input th:field="*{username}"
+                                                     type="text" name="username" class="form-control"
+                                                     placeholder="Username" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('username'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('username')}" th:text="${error}">Invalid data</p>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                    <div class="form-group ">
+                        <label>Password :</label> <input th:field="*{password}"
+                                                         type="password" name="password" class="form-control"
+                                                         placeholder="Password" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('password'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('password')}" th:text="${error}">Invalid data</p>
+
+                        </div>
+                    </div>
+                        </div>
+                        <div class="col">
+                        <div class="form-group ">
+                        <label>Confirm Password :</label> <input th:field="*{matchingPassword}"
+                                                         type="password" name="matchingPassword" class="form-control"
+                                                         placeholder="Confirm Password" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('matchingPassword'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('matchingPassword')}" th:text="${error}">Invalid data</p>
+
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+
+                    <div class="form-group ">
+                        <label>First Name :</label> <input th:field="*{first_name}"
+                                                                 type="text" name="first_name" class="form-control"
+                                                                 placeholder="First Name" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('first_name'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('first_name')}" th:text="${error}">Invalid data</p>
+
+                        </div>
+                    </div>
+                        </div>
+                        <div class="col">
+                        <div class="form-group ">
+                        <label>Last Name :</label> <input th:field="*{last_name}"
+                                                           type="text" name="last_name" class="form-control"
+                                                           placeholder="Last Name" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('last_name'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('last_name')}" th:text="${error}">Invalid data</p>
+
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                    <div class="form-group ">
+                        <label>Date of Birth :</label> <input th:field="*{birth_date}"
+                                                          type="text" name="birth_date" class="form-control dateinput"
+                                                          placeholder="Date of birth" required="required" th:value="${#dates.format(birth_date, 'dd/MM/yyyy')}" th:classappend="${not #lists.isEmpty(#fields.errors('birth_date'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('birth_date')}" th:text="${error}">Invalid data</p>
+                        </div>
+                    </div>
+                        </div>
+                        <div class="col">
+                    <div class="form-group ">
+                        <label>Phone :</label> <input th:field="*{phone}"
+                                                              type="text" name="phone" class="form-control"
+                                                              placeholder="Phone" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('phone'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('phone')}" th:text="${error}">Invalid data</p>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                    <div class="form-group ">
+                        <label>Country :</label> <input th:field="*{country}"
+                                                      type="text" name="country" class="form-control"
+                                                      placeholder="Country" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('country'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('country')}" th:text="${error}">Invalid data</p>
+                        </div>
+                    </div>
+                        </div>
+                        <div class="col">
+                        <div class="form-group ">
+                        <label>City :</label> <input th:field="*{city}"
+                                                        type="text" name="city" class="form-control"
+                                                        placeholder="City" required="required" th:classappend="${not #lists.isEmpty(#fields.errors('city'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('city')}" th:text="${error}">Invalid data</p>
+                        </div>
+                    </div>
+                        </div>
+                        <div class="col">
+                        <div class="form-group ">
+                        <label>Address :</label> <input th:field="*{address}"
+                                                        type="text" name="address" class="form-control"
+                                                        placeholder="Address" required="required"  th:classappend="${not #lists.isEmpty(#fields.errors('address'))} ? is-invalid  " />
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('address')}" th:text="${error}">Invalid data</p>
+                        </div>
+                    </div>
+                            </div>
+                    </div>
+                    <div class="form-group ">
+                    <label>Gender :</label>
+                    <div class="form-check form-check-inline" th:each="gen : ${T(university.accommodation.management.system.model.enums.Gender).values()}">
+                        <input th:field="*{gender}" class="form-check-input" type="radio" id="gender" th:value="${gen}" th:classappend="${not #lists.isEmpty(#fields.errors('gender'))} ? is-invalid " required="required">
+                        <label class="form-check-label" th:text="${gen}" ></label>
+                        <div class="invalid-feedback" >
+                            <p th:each="error: ${#fields.errors('gender')}" th:text="${error}">Invalid data</p>
+                        </div>
+                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark">
+                        <i class="fa fa-sign-in"></i>Signup
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</html>

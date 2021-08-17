@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Chiefs</title>
+</head>
+<body>
+<div layout:fragment="page_content" id="page_content">
+    <div class="card">
+        <div class="card-header bg-light">
+            <span class="float-left">Chiefs</span>
+            <a sec:authorize="hasAuthority('add_chief')" class="btn-sm btn-outline-dark float-right" th:href="@{/chiefs/new}"><i class="fa fa-plus"></i>Add Chief</a>
+        </div>
+        <div class="card-body">
+    <table id="datatable" class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th class="th-sm" scope="col">Username</th>
+            <th class="th-sm" scope="col">Phone</th>
+            <th class="th-sm" scope="col">University</th>
+            <th class="th-sm" scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="chief : ${chiefs}">
+            <tr>
+                <td ><strong><a class="text-dark" th:href="@{'/chiefs/'+${chief.id}}" th:text="${chief.username}"/></strong></td>
+                <td th:text="${chief.phone}"></td>
+                <td ><div sec:authorize="!hasAuthority('view_university')" th:text="${chief.university.name}"></div><strong><a class="text-dark" sec:authorize="hasAuthority('view_university')" th:href="@{'/universities/'+${chief.university.id}}" th:text="${chief.university.name}"/></strong></td>
+                <td><a sec:authorize="hasAuthority('delete_chief')" class="btn btn-outline-dark"
+                       th:href="@{'/chiefs/'+ ${chief.id} + '/delete'}"><i
+                        class="fa fa-trash"></i></a> <a sec:authorize="hasAuthority('edit_chief')" class="btn btn-outline-dark"
+                                                              th:href="@{'/chiefs/'+${chief.id} + '/edit'}"><i class="fa fa-edit"></i></a></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+    </div>
+</div>
+</body>
+</html>
