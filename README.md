@@ -23,7 +23,7 @@ university_accommodation_management_system uses a number of open source projects
 And of course university_accommodation_management_system itself is open source with a [public repository][dill]
  on GitHub.
 
-## Installation
+## Installation and run
 
 ```sh
 mvn spring boot:run
