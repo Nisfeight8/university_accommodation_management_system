@@ -15,8 +15,8 @@ Implementation of a university accommodation management system.
 
 university_accommodation_management_system uses a number of open source projects to work properly:
 
-- [Sring Boot] - JAva framework!
-- [Bootstrap] - great UI boilerplate for modern web apps
+- [Sring Boot] - Java framework!
+- [Bootstrap] - Great UI boilerplate for modern web apps
 - [MySQL] - Database
 
 
