@@ -70,11 +70,18 @@
                 <div class="col-sm-8 text-secondary" th:text="${app.status}"></div>
             </div><hr>
         </div>
-        <div class="card-footer">
+        <div class="card-footer d-flex justify-content-center">
+            <div class="row ">
             <a sec:authorize="hasAuthority('delete_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+ ${app.id} + '/delete'}"><i class="fa fa-trash"></i> Delete</a>
             <a sec:authorize="hasAuthority('edit_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+${app.id} + '/edit'}"><i class="fa fa-edit"></i> Edit </a>
-            <a sec:authorize="hasAuthority('admit_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+${app.id} + '/accept'}"><i class="fa fa-check"></i> Accept</a>
-            <a sec:authorize="hasAuthority('admit_application')" class="btn btn-outline-dark" th:href="@{'/applications/'+${app.id} + '/refuse'}"><i class="fa fa-times"></i> Refuse</a>
+            <form sec:authorize="hasAuthority('admit_application')" method="POST" th:action="@{'/applications/'+${app.id} + '/accept'}">
+                <button type="submit" name="submit" value="Accept"
+                        class="btn btn-outline-dark"><i class="fa fa-check"></i>Accept</button>
+            </form><form sec:authorize="hasAuthority('admit_application')" method="POST" th:action="@{'/applications/'+${app.id} + '/refuse'}">
+                <button type="submit" name="submit" value="submit"
+                        class="btn btn-outline-dark"><i class="fa fa-times"></i>Refuse</button>
+            </form>
+            </div>
         </div>
     </div>
 </div>
